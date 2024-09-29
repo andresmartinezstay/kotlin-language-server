@@ -14,4 +14,3 @@ pluginManagement {
 }
 
 rootProject.name = "kotlin-language-server"
-

@@ -13,7 +13,7 @@ repositories {
     mavenCentral()
     maven(url = "https://repo.gradle.org/gradle/libs-releases")
     maven(uri("$projectDir/lib"))
-    maven("https://jitpack.io")
+    maven(url = "https://jitpack.io")
 }
 
 dependencies {
@@ -30,7 +30,7 @@ dependencies {
     implementation("org.jetbrains.exposed:exposed-dao:$exposedVersion")
     implementation("org.jetbrains.exposed:exposed-jdbc:$exposedVersion")
     implementation("com.h2database:h2:1.4.200")
-    implementation("com.facebook:ktfmt:0.52")
+    implementation("com.github.amgdev9:ktfmt:main-SNAPSHOT")
     implementation("com.beust:jcommander:1.78")
     implementation("org.xerial:sqlite-jdbc:3.41.2.1")
 
