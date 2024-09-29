@@ -38,8 +38,7 @@ dependencies {
     implementation(platform(project(":platform")))
     annotationProcessor(platform(project(":platform")))
 
-    implementation(project(":shared"))
-
+    implementation(kotlin("stdlib"))
     implementation("org.eclipse.lsp4j:org.eclipse.lsp4j")
     implementation("org.eclipse.lsp4j:org.eclipse.lsp4j.jsonrpc")
     implementation(kotlin("compiler"))
