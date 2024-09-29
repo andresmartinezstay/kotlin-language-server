@@ -4,8 +4,6 @@ val lsp4jVersion = "0.21.2"
 plugins {
     kotlin("jvm") version "2.0.20"
     id("application")
-    id("com.github.jk1.tcdeps")
-    id("com.jaredsburrows.license")
 }
 
 group = "org.javacs.kt"
@@ -14,7 +12,6 @@ version = "1.0.0"
 repositories {
     mavenCentral()
     maven(url = "https://repo.gradle.org/gradle/libs-releases")
-    maven { url = uri("$projectDir/lib") }
     maven(uri("$projectDir/lib"))
     maven("https://jitpack.io")
 }
