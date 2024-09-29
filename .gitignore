@@ -16,12 +16,6 @@ build
 target
 out
 
-# Python
-__pycache__
-
-# Node.js
-node_modules
-
 # VSCode
 .vscode-test
 .vscode/*
