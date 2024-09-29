@@ -1,4 +1,4 @@
-- 15 failed tests, 5 ignored
+- 4 failed tests, 5 ignored
 - Fix-imports-on-save, default to 'on'
   - See https://godoc.org/golang.org/x/tools/cmd/goimports
 - Rename

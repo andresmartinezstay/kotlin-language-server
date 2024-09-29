@@ -1,7 +1,6 @@
 package org.javacs.kt.util
 
 import org.javacs.kt.LOG
-import java.time.Duration
 import java.util.function.Supplier
 import java.util.concurrent.CompletableFuture
 import java.util.concurrent.Executors
@@ -17,15 +16,6 @@ class AsyncExecutor {
 
 	fun <R> compute(task: () -> R) =
 			CompletableFuture.supplyAsync(Supplier(task), workerThread)
-
-	fun <R> computeOr(defaultValue: R, task: () -> R?) =
-			CompletableFuture.supplyAsync(Supplier {
-				try {
-					task() ?: defaultValue
-				} catch (e: Exception) {
-					defaultValue
-				}
-			}, workerThread)
 
 	fun shutdown(awaitTermination: Boolean) {
 		workerThread.shutdown()

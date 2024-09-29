@@ -18,19 +18,19 @@ repositories {
 
 dependencies {
     implementation(kotlin("stdlib"))
-    implementation("org.eclipse.lsp4j:org.eclipse.lsp4j:$lsp4jVersion")
-    implementation("org.eclipse.lsp4j:org.eclipse.lsp4j.jsonrpc:$lsp4jVersion")
     implementation(kotlin("compiler"))
     implementation(kotlin("scripting-compiler"))
     implementation(kotlin("scripting-jvm-host-unshaded"))
     implementation(kotlin("sam-with-receiver-compiler-plugin"))
     implementation(kotlin("reflect"))
+    implementation("org.eclipse.lsp4j:org.eclipse.lsp4j:$lsp4jVersion")
+    implementation("org.eclipse.lsp4j:org.eclipse.lsp4j.jsonrpc:$lsp4jVersion")
     implementation("org.jetbrains:fernflower:1.0")
     implementation("org.jetbrains.exposed:exposed-core:$exposedVersion")
     implementation("org.jetbrains.exposed:exposed-dao:$exposedVersion")
     implementation("org.jetbrains.exposed:exposed-jdbc:$exposedVersion")
     implementation("com.h2database:h2:1.4.200")
-    implementation("com.github.fwcd.ktfmt:ktfmt:b5d31d1")
+    implementation("com.facebook:ktfmt:0.52")
     implementation("com.beust:jcommander:1.78")
     implementation("org.xerial:sqlite-jdbc:3.41.2.1")
 
