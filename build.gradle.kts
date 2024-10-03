@@ -23,19 +23,20 @@ dependencies {
     implementation(kotlin("scripting-jvm-host-unshaded"))
     implementation(kotlin("sam-with-receiver-compiler-plugin"))
     implementation(kotlin("reflect"))
+
     implementation("org.eclipse.lsp4j:org.eclipse.lsp4j:$lsp4jVersion")
     implementation("org.eclipse.lsp4j:org.eclipse.lsp4j.jsonrpc:$lsp4jVersion")
     implementation("org.jetbrains:fernflower:1.0")
     implementation("org.jetbrains.exposed:exposed-core:$exposedVersion")
     implementation("org.jetbrains.exposed:exposed-dao:$exposedVersion")
     implementation("org.jetbrains.exposed:exposed-jdbc:$exposedVersion")
-    implementation("com.h2database:h2:1.4.200")
+    implementation("com.h2database:h2:2.2.220")
     implementation("com.github.amgdev9:ktfmt:63dc04e184")
     implementation("com.beust:jcommander:1.78")
-    implementation("org.xerial:sqlite-jdbc:3.41.2.1")
+    implementation("org.xerial:sqlite-jdbc:3.41.2.2")
 
     testImplementation(kotlin("test"))
-    testImplementation("junit:junit:4.11")
+    testImplementation("junit:junit:4.13.1")
     testImplementation("org.hamcrest:hamcrest-all:1.3")
     testImplementation("org.openjdk.jmh:jmh-core:1.20")
 

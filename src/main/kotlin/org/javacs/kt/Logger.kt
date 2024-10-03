@@ -1,14 +1,11 @@
 package org.javacs.kt
 
-import java.io.PrintWriter
-import java.io.StringWriter
+import org.javacs.kt.util.DelegatePrintStream
+import java.time.Instant
 import java.util.*
-import java.util.logging.Formatter
-import java.util.logging.LogRecord
 import java.util.logging.Handler
 import java.util.logging.Level
-import java.time.Instant
-import org.javacs.kt.util.DelegatePrintStream
+import java.util.logging.LogRecord
 
 val LOG = Logger()
 
@@ -57,7 +54,6 @@ class Logger {
     private val errStream = DelegatePrintStream { logError(LogMessage(LogLevel.ERROR, it.trimEnd())) }
     val outStream = DelegatePrintStream { log(LogMessage(LogLevel.INFO, it.trimEnd())) }
 
-    private val newline = System.lineSeparator()
     val logTime = false
     var level = LogLevel.INFO
 
@@ -103,7 +99,8 @@ class Logger {
 
     fun trace(msg: String, vararg placeholders: Any?) = logWithPlaceholdersAt(LogLevel.TRACE, msg, placeholders)
 
-    fun deepTrace(msg: String, vararg placeholders: Any?) = logWithPlaceholdersAt(LogLevel.DEEP_TRACE, msg, placeholders)
+    fun deepTrace(msg: String, vararg placeholders: Any?) =
+        logWithPlaceholdersAt(LogLevel.DEEP_TRACE, msg, placeholders)
 
     // Convenience logging methods using inlined lambdas
 
@@ -182,9 +179,9 @@ class Logger {
     }
 
     private fun shortenOrPad(str: String, length: Int): String =
-            if (str.length <= length) {
-                str.padEnd(length, ' ')
-            } else {
-                ".." + str.substring(str.length - length + 2)
-            }
+        if (str.length <= length) {
+            str.padEnd(length, ' ')
+        } else {
+            ".." + str.substring(str.length - length + 2)
+        }
 }
