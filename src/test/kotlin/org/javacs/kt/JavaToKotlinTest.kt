@@ -5,6 +5,7 @@ import org.junit.Test
 import org.junit.Assert.assertThat
 import org.junit.Ignore
 import org.hamcrest.Matchers.equalTo
+import org.javacs.kt.lsp.KotlinLanguageServer
 
 class JavaToKotlinTest : LanguageServerTestFixture("j2k") {
     // TODO: Seems to throw the same exception as
@@ -21,7 +22,7 @@ class JavaToKotlinTest : LanguageServerTestFixture("j2k") {
             .readText()
             .trim()
             .replace("\r\n", "\n")
-        val compiler = languageServer.classPath.compiler
+        val compiler = KotlinLanguageServer.classPath.compiler
         val convertedKotlinCode = convertJavaToKotlin(javaCode, compiler).replace("\r\n", "\n")
         assertThat(convertedKotlinCode, equalTo(expectedKotlinCode))
     }

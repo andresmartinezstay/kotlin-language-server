@@ -1,4 +1,4 @@
-package org.javacs.kt
+package org.javacs.kt.lsp
 
 import org.eclipse.lsp4j.*
 import org.eclipse.lsp4j.jsonrpc.messages.Either
@@ -7,6 +7,16 @@ import org.eclipse.lsp4j.services.LanguageClient
 import org.eclipse.lsp4j.services.LanguageClientAware
 import org.eclipse.lsp4j.services.LanguageServer
 import org.eclipse.lsp4j.services.NotebookDocumentService
+import org.javacs.kt.CompilerClassPath
+import org.javacs.kt.Configuration
+import org.javacs.kt.KotlinProtocolExtensionService
+import org.javacs.kt.KotlinProtocolExtensions
+import org.javacs.kt.LOG
+import org.javacs.kt.LogLevel
+import org.javacs.kt.LogMessage
+import org.javacs.kt.SourceFiles
+import org.javacs.kt.SourcePath
+import org.javacs.kt.URIContentProvider
 import org.javacs.kt.command.ALL_COMMANDS
 import org.javacs.kt.database.DatabaseService
 import org.javacs.kt.progress.LanguageClientProgress
@@ -16,7 +26,7 @@ import org.javacs.kt.util.AsyncExecutor
 import org.javacs.kt.util.TemporaryDirectory
 import org.javacs.kt.util.parseURI
 import org.javacs.kt.externalsources.*
-import org.javacs.kt.index.SymbolIndex
+import org.javacs.kt.getStoragePath
 import java.io.Closeable
 import java.nio.file.Paths
 import java.util.concurrent.CompletableFuture
@@ -29,11 +39,22 @@ class KotlinLanguageServer(
     val classPath = CompilerClassPath(config.compiler, config.scripts, config.codegen, databaseService)
 
     private val tempDirectory = TemporaryDirectory()
-    private val uriContentProvider = URIContentProvider(ClassContentProvider(config.externalSources, classPath, tempDirectory, CompositeSourceArchiveProvider(JdkSourceArchiveProvider(classPath), ClassPathSourceArchiveProvider(classPath))))
+    private val uriContentProvider = URIContentProvider(
+        ClassContentProvider(
+            config.externalSources,
+            classPath,
+            tempDirectory,
+            CompositeSourceArchiveProvider(
+                JdkSourceArchiveProvider(classPath),
+                ClassPathSourceArchiveProvider(classPath)
+            )
+        )
+    )
     val sourcePath = SourcePath(classPath, uriContentProvider, config.indexing, databaseService)
     val sourceFiles = SourceFiles(sourcePath, uriContentProvider, config.scripts)
 
-    private val textDocuments = KotlinTextDocumentService(sourceFiles, sourcePath, config, tempDirectory, uriContentProvider, classPath)
+    private val textDocuments =
+        KotlinTextDocumentService(sourceFiles, sourcePath, config, tempDirectory, uriContentProvider, classPath)
     private val workspaces = KotlinWorkspaceService(sourceFiles, sourcePath, classPath, textDocuments, config)
     private val protocolExtensions = KotlinProtocolExtensionService(uriContentProvider, classPath, sourcePath)
 
@@ -41,7 +62,7 @@ class KotlinLanguageServer(
 
     private val async = AsyncExecutor()
     private var progressFactory: Progress.Factory = Progress.Factory.None
-        set(factory: Progress.Factory) {
+        set(factory) {
             field = factory
             sourcePath.progressFactory = factory
         }

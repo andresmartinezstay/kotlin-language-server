@@ -4,6 +4,7 @@ import com.beust.jcommander.JCommander
 import com.beust.jcommander.Parameter
 import java.util.concurrent.Executors
 import org.eclipse.lsp4j.launch.LSPLauncher
+import org.javacs.kt.lsp.KotlinLanguageServer
 import org.javacs.kt.util.ExitingInputStream
 import org.javacs.kt.util.tcpStartServer
 import org.javacs.kt.util.tcpConnectToClient

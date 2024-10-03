@@ -28,18 +28,18 @@ fun codeActions(file: CompiledFile, index: SymbolIndex, range: Range, context: C
 
 fun getRefactors(file: CompiledFile, range: Range): List<Either<Command, CodeAction>> {
     val hasSelection = (range.end.line - range.start.line) != 0 || (range.end.character - range.start.character) != 0
-    return if (hasSelection) {
-        listOf(
-            Either.forLeft<Command, CodeAction>(
-                Command("Convert Java to Kotlin", JAVA_TO_KOTLIN_COMMAND, listOf(
+    if (!hasSelection) return emptyList()
+
+    listOf(
+        Either.forLeft<Command, CodeAction>(
+            Command(
+                "Convert Java to Kotlin", JAVA_TO_KOTLIN_COMMAND, listOf(
                     file.parse.toPath().toUri().toString(),
                     range
-                ))
+                )
             )
         )
-    } else {
-        emptyList()
-    }
+    )
 }
 
 fun getQuickFixes(file: CompiledFile, index: SymbolIndex, range: Range, diagnostics: List<Diagnostic>): List<Either<Command, CodeAction>> {

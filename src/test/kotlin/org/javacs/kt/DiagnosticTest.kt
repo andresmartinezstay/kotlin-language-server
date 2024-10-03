@@ -6,6 +6,7 @@ import org.eclipse.lsp4j.DiagnosticSeverity
 import org.eclipse.lsp4j.DocumentSymbolParams
 import org.eclipse.lsp4j.TextDocumentIdentifier
 import org.hamcrest.Matchers.*
+import org.javacs.kt.lsp.KotlinLanguageServer
 import org.junit.Assert.assertThat
 import org.junit.Test
 
@@ -19,7 +20,7 @@ class DiagnosticTest : SingleFileTestFixture("diagnostic", "Diagnostics.kt") {
     }
 
     @Test fun `report only errors`() {
-        languageServer.config.diagnostics.level = DiagnosticSeverity.Error
+        KotlinLanguageServer.config.diagnostics.level = DiagnosticSeverity.Error
 
         // Trigger a diagnostics update via a dummy change.
         replace(file, 6, 1, "", " ")
@@ -31,7 +32,7 @@ class DiagnosticTest : SingleFileTestFixture("diagnostic", "Diagnostics.kt") {
     }
 
     @Test fun `disable diagnostics`() {
-        languageServer.config.diagnostics.enabled = false
+        KotlinLanguageServer.config.diagnostics.enabled = false
 
         // Trigger a diagnostics update via a dummy change.
         replace(file, 1, 1, "", " ")
