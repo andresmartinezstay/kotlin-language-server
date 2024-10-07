@@ -272,7 +272,7 @@ class KotlinTextDocumentService(
         return "${describeURI(position.textDocument.uri)} ${position.position.line + 1}:${position.position.character + 1}"
     }
 
-    public fun updateDebouncer() {
+    fun updateDebouncer() {
         debounceLint = Debouncer(Duration.ofMillis(config.diagnostics.debounceTime))
     }
 
@@ -339,13 +339,10 @@ class KotlinTextDocumentService(
         client.publishDiagnostics(PublishDiagnosticsParams(uri.toString(), listOf()))
     }
 
-    private fun shutdownExecutors(awaitTermination: Boolean) {
+    override fun close() {
+        val awaitTermination = true
         async.shutdown(awaitTermination)
         debounceLint.shutdown(awaitTermination)
-    }
-
-    override fun close() {
-        shutdownExecutors(awaitTermination = true)
     }
 }
 

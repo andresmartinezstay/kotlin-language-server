@@ -7,7 +7,7 @@ import org.eclipse.lsp4j.services.LanguageClientAware
 import org.eclipse.lsp4j.jsonrpc.messages.Either
 import org.javacs.kt.symbols.workspaceSymbols
 import org.javacs.kt.command.JAVA_TO_KOTLIN_COMMAND
-import org.javacs.kt.j2k.convertJavaToKotlin
+import org.javacs.kt.javaToKotlin.convertJavaToKotlin
 import org.javacs.kt.position.extractRange
 import org.javacs.kt.util.filePath
 import org.javacs.kt.util.parseURI

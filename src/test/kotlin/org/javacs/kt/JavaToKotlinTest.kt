@@ -1,6 +1,6 @@
 package org.javacs.kt
 
-import org.javacs.kt.j2k.convertJavaToKotlin
+import org.javacs.kt.javaToKotlin.convertJavaToKotlin
 import org.junit.Test
 import org.junit.Assert.assertThat
 import org.junit.Ignore

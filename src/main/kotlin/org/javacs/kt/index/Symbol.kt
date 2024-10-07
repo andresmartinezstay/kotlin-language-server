@@ -22,12 +22,12 @@ data class Symbol(
         UNKNOWN(9);
 
         companion object {
-            fun fromRaw(rawValue: Int) = Kind.values().firstOrNull { it.rawValue == rawValue } ?: Kind.UNKNOWN
+            fun fromRaw(rawValue: Int) = Kind.entries.firstOrNull { it.rawValue == rawValue } ?: UNKNOWN
         }
     }
 
     enum class Visibility(val rawValue: Int) {
-        PRIAVTE_TO_THIS(0),
+        PRIVATE_TO_THIS(0),
         PRIVATE(1),
         INTERNAL(2),
         PROTECTED(3),
@@ -35,7 +35,7 @@ data class Symbol(
         UNKNOWN(5);
 
         companion object {
-            fun fromRaw(rawValue: Int) = Visibility.values().firstOrNull { it.rawValue == rawValue } ?: Visibility.UNKNOWN
+            fun fromRaw(rawValue: Int) = Visibility.entries.firstOrNull { it.rawValue == rawValue } ?: UNKNOWN
         }
     }
 }

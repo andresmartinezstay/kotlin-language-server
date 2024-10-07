@@ -62,8 +62,8 @@ enum class SemanticTokenModifier(val modifierName: String) {
 }
 
 val semanticTokensLegend = SemanticTokensLegend(
-    SemanticTokenType.values().map { it.typeName },
-    SemanticTokenModifier.values().map { it.modifierName }
+    SemanticTokenType.entries.map { it.typeName },
+    SemanticTokenModifier.entries.map { it.modifierName }
 )
 
 data class SemanticToken(val range: Range, val type: SemanticTokenType, val modifiers: Set<SemanticTokenModifier> = setOf())

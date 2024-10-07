@@ -6,7 +6,7 @@ import org.javacs.kt.LOG
 import org.javacs.kt.util.describeURI
 import org.javacs.kt.util.KotlinLSException
 import org.javacs.kt.util.TemporaryDirectory
-import org.javacs.kt.j2k.convertJavaToKotlin
+import org.javacs.kt.javaToKotlin.convertJavaToKotlin
 import java.io.BufferedReader
 import java.io.FileNotFoundException
 import java.nio.file.Files

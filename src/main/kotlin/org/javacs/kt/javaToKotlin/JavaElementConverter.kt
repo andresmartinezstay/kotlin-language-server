@@ -1,4 +1,4 @@
-package org.javacs.kt.j2k
+package org.javacs.kt.javaToKotlin
 
 import org.javacs.kt.LOG
 import com.intellij.psi.*

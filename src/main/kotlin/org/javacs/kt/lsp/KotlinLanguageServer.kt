@@ -86,7 +86,6 @@ class KotlinLanguageServer(
     }
 
     override fun getTextDocumentService(): KotlinTextDocumentService = textDocuments
-
     override fun getWorkspaceService(): KotlinWorkspaceService = workspaces
 
     @JsonDelegate
@@ -94,26 +93,29 @@ class KotlinLanguageServer(
 
     override fun initialize(params: InitializeParams): CompletableFuture<InitializeResult> = async.compute {
         val serverCapabilities = ServerCapabilities()
-        serverCapabilities.setTextDocumentSync(TextDocumentSyncKind.Incremental)
-        serverCapabilities.workspace = WorkspaceServerCapabilities()
-        serverCapabilities.workspace.workspaceFolders = WorkspaceFoldersOptions()
-        serverCapabilities.workspace.workspaceFolders.supported = true
-        serverCapabilities.workspace.workspaceFolders.changeNotifications = Either.forRight(true)
-        serverCapabilities.inlayHintProvider = Either.forLeft(true)
-        serverCapabilities.hoverProvider = Either.forLeft(true)
-        serverCapabilities.renameProvider = Either.forLeft(true)
-        serverCapabilities.completionProvider = CompletionOptions(false, listOf("."))
-        serverCapabilities.signatureHelpProvider = SignatureHelpOptions(listOf("(", ","))
-        serverCapabilities.definitionProvider = Either.forLeft(true)
-        serverCapabilities.documentSymbolProvider = Either.forLeft(true)
-        serverCapabilities.workspaceSymbolProvider = Either.forLeft(true)
-        serverCapabilities.referencesProvider = Either.forLeft(true)
-        serverCapabilities.semanticTokensProvider = SemanticTokensWithRegistrationOptions(semanticTokensLegend, true, true)
-        serverCapabilities.codeActionProvider = Either.forLeft(true)
-        serverCapabilities.documentFormattingProvider = Either.forLeft(true)
-        serverCapabilities.documentRangeFormattingProvider = Either.forLeft(true)
-        serverCapabilities.executeCommandProvider = ExecuteCommandOptions(ALL_COMMANDS)
-        serverCapabilities.documentHighlightProvider = Either.forLeft(true)
+        with(serverCapabilities) {
+            setTextDocumentSync(TextDocumentSyncKind.Incremental)
+            workspace = WorkspaceServerCapabilities()
+            workspace.workspaceFolders = WorkspaceFoldersOptions()
+            workspace.workspaceFolders.supported = true
+            workspace.workspaceFolders.changeNotifications = Either.forRight(true)
+            inlayHintProvider = Either.forLeft(true)
+            hoverProvider = Either.forLeft(true)
+            renameProvider = Either.forLeft(true)
+            completionProvider = CompletionOptions(false, listOf("."))
+            signatureHelpProvider = SignatureHelpOptions(listOf("(", ","))
+            definitionProvider = Either.forLeft(true)
+            documentSymbolProvider = Either.forLeft(true)
+            workspaceSymbolProvider = Either.forLeft(true)
+            referencesProvider = Either.forLeft(true)
+            semanticTokensProvider =
+                SemanticTokensWithRegistrationOptions(semanticTokensLegend, true, true)
+            codeActionProvider = Either.forLeft(true)
+            documentFormattingProvider = Either.forLeft(true)
+            documentRangeFormattingProvider = Either.forLeft(true)
+            executeCommandProvider = ExecuteCommandOptions(ALL_COMMANDS)
+            documentHighlightProvider = Either.forLeft(true)
+        }
 
         val storagePath = getStoragePath(params)
         databaseService.setup(storagePath)
@@ -192,10 +194,4 @@ class KotlinLanguageServer(
     }
 
     override fun exit() {}
-
-    // Fixed in https://github.com/eclipse/lsp4j/commit/04b0c6112f0a94140e22b8b15bb5a90d5a0ed851
-    // Causes issue in lsp 0.15
-    override fun getNotebookDocumentService(): NotebookDocumentService? {
-		return null;
-	}
 }
