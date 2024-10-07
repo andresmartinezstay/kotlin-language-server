@@ -465,7 +465,7 @@ class Compiler(
     private val outputDirectory: File,
 ) : Closeable {
     private var closed = false
-    private val localFileSystem: VirtualFileSystem
+    private val localFileSystem: VirtualFileSystem = VirtualFileManager.getInstance().getFileSystem(StandardFileSystems.FILE_PROTOCOL)
 
     private val defaultCompileEnvironment = CompilationEnvironment(javaSourcePath, classPath, scriptsConfig)
     private val buildScriptCompileEnvironment = buildScriptClassPath
@@ -477,10 +477,6 @@ class Compiler(
         init {
             setIdeaIoUseFallback()
         }
-    }
-
-    init {
-        localFileSystem = VirtualFileManager.getInstance().getFileSystem(StandardFileSystems.FILE_PROTOCOL)
     }
 
     /**

@@ -1,9 +1,16 @@
-package org.javacs.kt
+package org.javacs.kt.lsp
 
 import org.eclipse.lsp4j.*
 import org.eclipse.lsp4j.jsonrpc.messages.Either
 import org.eclipse.lsp4j.services.LanguageClient
 import org.eclipse.lsp4j.services.TextDocumentService
+import org.javacs.kt.CompiledFile
+import org.javacs.kt.CompilerClassPath
+import org.javacs.kt.Configuration
+import org.javacs.kt.LOG
+import org.javacs.kt.SourceFiles
+import org.javacs.kt.SourcePath
+import org.javacs.kt.URIContentProvider
 import org.javacs.kt.codeaction.codeActions
 import org.javacs.kt.completion.completions
 import org.javacs.kt.definition.goToDefinition
@@ -55,14 +62,8 @@ class KotlinTextDocumentService(
         get() = sp.beforeCompileCallback
         set(callback) { sp.beforeCompileCallback = callback }
 
-    private val TextDocumentItem.filePath: Path?
-        get() = parseURI(uri).filePath
-
     private val TextDocumentIdentifier.filePath: Path?
         get() = parseURI(uri).filePath
-
-    private val TextDocumentIdentifier.isKotlinScript: Boolean
-        get() = uri.endsWith(".kts")
 
     private val TextDocumentIdentifier.content: String
         get() = sp.content(parseURI(uri))

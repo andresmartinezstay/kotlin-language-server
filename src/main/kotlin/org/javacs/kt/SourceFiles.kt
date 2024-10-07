@@ -98,22 +98,22 @@ class SourceFiles(
     }
 
     fun edit(uri: URI, newVersion: Int, contentChanges: List<TextDocumentContentChangeEvent>) {
-        if (isIncluded(uri)) {
-            val existing = files[uri]!!
-            var newText = existing.content
+        if (!isIncluded(uri)) return
 
-            if (newVersion <= existing.version) {
-                LOG.warn("Ignored {} version {}", describeURI(uri), newVersion)
-                return
-            }
+        val existing = files[uri]!!
+        var newText = existing.content
 
-            for (change in contentChanges) {
-                if (change.range == null) newText = change.text
-                else newText = patch(newText, change)
-            }
-
-            files[uri] = SourceVersion(newText, newVersion, existing.language, existing.isTemporary)
+        if (newVersion <= existing.version) {
+            LOG.warn("Ignored {} version {}", describeURI(uri), newVersion)
+            return
         }
+
+        for (change in contentChanges) {
+            if (change.range == null) newText = change.text
+            else newText = patch(newText, change)
+        }
+
+        files[uri] = SourceVersion(newText, newVersion, existing.language, existing.isTemporary)
     }
 
     fun createdOnDisk(uri: URI) {

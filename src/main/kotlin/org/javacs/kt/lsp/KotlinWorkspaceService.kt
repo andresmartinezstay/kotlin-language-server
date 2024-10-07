@@ -1,4 +1,4 @@
-package org.javacs.kt
+package org.javacs.kt.lsp
 
 import org.eclipse.lsp4j.*
 import org.eclipse.lsp4j.services.WorkspaceService
@@ -16,6 +16,11 @@ import java.util.concurrent.CompletableFuture
 import com.google.gson.JsonElement
 import com.google.gson.Gson
 import com.google.gson.JsonObject
+import org.javacs.kt.CompilerClassPath
+import org.javacs.kt.Configuration
+import org.javacs.kt.LOG
+import org.javacs.kt.SourceFiles
+import org.javacs.kt.SourcePath
 
 class KotlinWorkspaceService(
     private val sf: SourceFiles,

@@ -36,7 +36,7 @@ class SourcePath(
     var beforeCompileCallback: () -> Unit = {}
 
     var progressFactory: Progress.Factory = Progress.Factory.None
-        set(factory: Progress.Factory) {
+        set(factory) {
             field = factory
             index.progressFactory = factory
         }

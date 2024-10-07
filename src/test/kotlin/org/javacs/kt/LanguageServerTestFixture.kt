@@ -2,6 +2,7 @@ package org.javacs.kt
 
 import org.eclipse.lsp4j.*
 import org.eclipse.lsp4j.services.LanguageClient
+import org.javacs.kt.lsp.KotlinLanguageServer
 import org.junit.Before
 import org.junit.After
 import java.nio.file.Path

@@ -180,7 +180,6 @@ class CompiledFile(
         return psi.findParent<KtElement>()
     }
 
-
     /**
      * Find the declaration of the element at the cursor.
      */
