@@ -30,7 +30,7 @@ fun getRefactors(file: CompiledFile, range: Range): List<Either<Command, CodeAct
     val hasSelection = (range.end.line - range.start.line) != 0 || (range.end.character - range.start.character) != 0
     if (!hasSelection) return emptyList()
 
-    listOf(
+    return listOf(
         Either.forLeft<Command, CodeAction>(
             Command(
                 "Convert Java to Kotlin", JAVA_TO_KOTLIN_COMMAND, listOf(

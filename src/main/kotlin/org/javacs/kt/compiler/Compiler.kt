@@ -5,9 +5,6 @@ package org.javacs.kt.compiler
 
 import com.intellij.lang.Language
 import com.intellij.openapi.util.Disposer
-import com.intellij.openapi.vfs.StandardFileSystems
-import com.intellij.openapi.vfs.VirtualFileManager
-import com.intellij.openapi.vfs.VirtualFileSystem
 import com.intellij.psi.PsiFile
 import com.intellij.psi.PsiFileFactory
 import org.jetbrains.kotlin.cli.common.CLIConfigurationKeys
@@ -465,7 +462,6 @@ class Compiler(
     private val outputDirectory: File,
 ) : Closeable {
     private var closed = false
-    private val localFileSystem: VirtualFileSystem = VirtualFileManager.getInstance().getFileSystem(StandardFileSystems.FILE_PROTOCOL)
 
     private val defaultCompileEnvironment = CompilationEnvironment(javaSourcePath, classPath, scriptsConfig)
     private val buildScriptCompileEnvironment = buildScriptClassPath
