@@ -28,14 +28,12 @@ private class JULRedirector(private val downstream: Logger): Handler() {
 }
 
 enum class LogLevel(val value: Int) {
-    NONE(100),
     ERROR(2),
     WARN(1),
     INFO(0),
     DEBUG(-1),
     TRACE(-2),
     DEEP_TRACE(-3),
-    ALL(-100)
 }
 
 class LogMessage(
