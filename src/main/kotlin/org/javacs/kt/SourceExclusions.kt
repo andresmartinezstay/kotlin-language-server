@@ -11,7 +11,7 @@ import java.nio.file.Paths
 // hardcoding them
 class SourceExclusions(
     private val workspaceRoots: Collection<Path>,
-    private val scriptsConfig: ScriptsConfiguration
+    scriptsConfig: Configuration.Scripts
 ) {
     val excludedPatterns = (listOf(
         ".git", ".hg", ".svn",                                                      // Version control systems

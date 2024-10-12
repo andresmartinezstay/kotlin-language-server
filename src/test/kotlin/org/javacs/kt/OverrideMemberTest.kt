@@ -18,7 +18,7 @@ class OverrideMemberTest : SingleFileTestFixture("overridemember", "OverrideMemb
 
     @Test
     fun `should show all overrides for class`() {
-        val result = KotlinLanguageServer.getProtocolExtensionService()
+        val result = languageServer.getProtocolExtensionService()
             .overrideMember(TextDocumentPositionParams(TextDocumentIdentifier(fileUri), position(9, 8))).get()
 
         val titles = result.map { it.title }
@@ -45,7 +45,7 @@ class OverrideMemberTest : SingleFileTestFixture("overridemember", "OverrideMemb
 
     @Test
     fun `should show one less override for class where one member is already implemented`() {
-        val result = KotlinLanguageServer.getProtocolExtensionService()
+        val result = languageServer.getProtocolExtensionService()
             .overrideMember(TextDocumentPositionParams(TextDocumentIdentifier(fileUri), position(11, 8))).get()
 
         val titles = result.map { it.title }
@@ -69,7 +69,7 @@ class OverrideMemberTest : SingleFileTestFixture("overridemember", "OverrideMemb
 
     @Test
     fun `should show NO overrides for class where all other alternatives are already implemented`() {
-        val result = KotlinLanguageServer.getProtocolExtensionService()
+        val result = languageServer.getProtocolExtensionService()
             .overrideMember(TextDocumentPositionParams(TextDocumentIdentifier(fileUri), position(15, 8))).get()
 
         assertThat(result, hasSize(0))
@@ -77,7 +77,7 @@ class OverrideMemberTest : SingleFileTestFixture("overridemember", "OverrideMemb
 
     @Test
     fun `should find method in open class`() {
-        val result = KotlinLanguageServer.getProtocolExtensionService()
+        val result = languageServer.getProtocolExtensionService()
             .overrideMember(TextDocumentPositionParams(TextDocumentIdentifier(fileUri), position(37, 8))).get()
 
         val titles = result.map { it.title }
@@ -101,7 +101,7 @@ class OverrideMemberTest : SingleFileTestFixture("overridemember", "OverrideMemb
 
     @Test
     fun `should find members in jdk object`() {
-        val result = KotlinLanguageServer.getProtocolExtensionService()
+        val result = languageServer.getProtocolExtensionService()
             .overrideMember(TextDocumentPositionParams(TextDocumentIdentifier(fileUri), position(39, 9))).get()
 
         val titles = result.map { it.title }

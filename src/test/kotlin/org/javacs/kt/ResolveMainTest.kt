@@ -15,7 +15,7 @@ class NoMainResolve : SingleFileTestFixture("resolvemain", "NoMain.kt") {
         val root = testResourcesRoot().resolve(workspaceRoot)
         val fileUri = root.resolve(file).toUri().toString()
 
-        val result = KotlinLanguageServer.getProtocolExtensionService().mainClass(TextDocumentIdentifier(fileUri)).get()
+        val result = languageServer.getProtocolExtensionService().mainClass(TextDocumentIdentifier(fileUri)).get()
 
         @Suppress("UNCHECKED_CAST")
         val mainInfo = result as Map<String, String>
@@ -31,7 +31,7 @@ class SimpleMainResolve : SingleFileTestFixture("resolvemain", "Simple.kt") {
         val root = testResourcesRoot().resolve(workspaceRoot)
         val fileUri = root.resolve(file).toUri().toString()
 
-        val result = KotlinLanguageServer.getProtocolExtensionService().mainClass(TextDocumentIdentifier(fileUri)).get()
+        val result = languageServer.getProtocolExtensionService().mainClass(TextDocumentIdentifier(fileUri)).get()
 
         assertNotNull(result)
         @Suppress("UNCHECKED_CAST")
@@ -49,7 +49,7 @@ class JvmNameAnnotationMainResolve : SingleFileTestFixture("resolvemain", "JvmNa
         val root = testResourcesRoot().resolve(workspaceRoot)
         val fileUri = root.resolve(file).toUri().toString()
 
-        val result = KotlinLanguageServer.getProtocolExtensionService().mainClass(TextDocumentIdentifier(fileUri)).get()
+        val result = languageServer.getProtocolExtensionService().mainClass(TextDocumentIdentifier(fileUri)).get()
 
         assertNotNull(result)
         @Suppress("UNCHECKED_CAST")
@@ -66,7 +66,7 @@ class CompanionObjectMainResolve : SingleFileTestFixture("resolvemain", "Compani
         val root = testResourcesRoot().resolve(workspaceRoot)
         val fileUri = root.resolve(file).toUri().toString()
 
-        val result = KotlinLanguageServer.getProtocolExtensionService().mainClass(TextDocumentIdentifier(fileUri)).get()
+        val result = languageServer.getProtocolExtensionService().mainClass(TextDocumentIdentifier(fileUri)).get()
 
         assertNotNull(result)
         @Suppress("UNCHECKED_CAST")

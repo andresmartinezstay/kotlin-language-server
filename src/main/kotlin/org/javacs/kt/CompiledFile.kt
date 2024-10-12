@@ -2,7 +2,6 @@ package org.javacs.kt
 
 import com.intellij.openapi.util.TextRange
 import com.intellij.psi.PsiElement
-import org.javacs.kt.compiler.CompilationKind
 import org.javacs.kt.position.changedRegion
 import org.javacs.kt.position.location
 import org.javacs.kt.position.position
@@ -272,3 +271,8 @@ class CompiledFile(
         return "$file ${start.line}:${start.character + 1}-${end.line + 1}:${end.character + 1}"
     }
 }
+
+const val JAVA_TO_KOTLIN_COMMAND = "convertJavaToKotlin"
+val ALL_COMMANDS = listOf(
+    JAVA_TO_KOTLIN_COMMAND,
+)

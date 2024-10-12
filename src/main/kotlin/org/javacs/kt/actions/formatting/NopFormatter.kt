@@ -1,4 +1,4 @@
-package org.javacs.kt.formatting
+package org.javacs.kt.actions.formatting
 
 import org.eclipse.lsp4j.FormattingOptions as LspFormattingOptions
 

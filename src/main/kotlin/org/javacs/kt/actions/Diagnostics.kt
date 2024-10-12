@@ -1,15 +1,14 @@
-package org.javacs.kt.diagnostic
+package org.javacs.kt.actions
 
 import org.eclipse.lsp4j.DiagnosticSeverity
-import org.eclipse.lsp4j.Diagnostic as LangServerDiagnostic
 import org.eclipse.lsp4j.DiagnosticTag
 import org.javacs.kt.position.range
 import org.javacs.kt.util.toPath
 import org.jetbrains.kotlin.diagnostics.Severity
 import org.jetbrains.kotlin.diagnostics.rendering.DefaultErrorMessages
-import org.jetbrains.kotlin.diagnostics.Diagnostic as KotlinDiagnostic
-import java.nio.file.Path
 import java.net.URI
+import org.eclipse.lsp4j.Diagnostic as LangServerDiagnostic
+import org.jetbrains.kotlin.diagnostics.Diagnostic as KotlinDiagnostic
 
 fun convertDiagnostic(diagnostic: KotlinDiagnostic): List<Pair<URI, LangServerDiagnostic>> {
     val uri = diagnostic.psiFile.toPath().toUri()

@@ -22,7 +22,7 @@ class JavaToKotlinTest : LanguageServerTestFixture("j2k") {
             .readText()
             .trim()
             .replace("\r\n", "\n")
-        val compiler = KotlinLanguageServer.classPath.compiler
+        val compiler = languageServer.classPath.compiler
         val convertedKotlinCode = convertJavaToKotlin(javaCode, compiler).replace("\r\n", "\n")
         assertThat(convertedKotlinCode, equalTo(expectedKotlinCode))
     }

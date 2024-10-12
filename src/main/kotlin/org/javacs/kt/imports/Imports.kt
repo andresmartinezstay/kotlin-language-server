@@ -17,7 +17,7 @@ fun getImportTextEditEntry(parsedFile: KtFile, fqName: FqName): TextEdit {
     
     val pos = findImportInsertionPosition(parsedFile, fqName)
     val prefix = if (importedNames.isEmpty()) "\n\n" else "\n"
-    return TextEdit(Range(pos, pos), "${prefix}import ${backtickBultins(fqName)}")
+    return TextEdit(Range(pos, pos), "${prefix}import ${backtickBuiltins(fqName)}")
 }
 
 /** Finds a good insertion position for a new import of the given fully-qualified name. */
@@ -39,8 +39,8 @@ private fun matchingPrefixLength(left: FqName, right: FqName): Int =
         .takeWhile { it.first == it.second }
         .count()
 
-private fun backtickBultins(fqName: FqName): String {
-    val builtInKeywords = KtTokens.KEYWORDS.getTypes()
+private fun backtickBuiltins(fqName: FqName): String {
+    val builtInKeywords = KtTokens.KEYWORDS.types
         .mapNotNull { (it as? KtKeywordToken)?.value }
     var result = fqName.asString()
     for (builtin in builtInKeywords) {

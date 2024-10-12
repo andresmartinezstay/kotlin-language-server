@@ -1,6 +1,5 @@
 package org.javacs.kt
 
-import org.javacs.kt.compiler.CompilationKind
 import org.javacs.kt.util.AsyncExecutor
 import org.javacs.kt.util.fileExtension
 import org.javacs.kt.util.filePath
@@ -23,8 +22,8 @@ import java.util.concurrent.locks.ReentrantLock
 class SourcePath(
     private val cp: CompilerClassPath,
     private val contentProvider: URIContentProvider,
-    private val indexingConfig: IndexingConfiguration,
-    private val databaseService: DatabaseService
+    private val indexingConfig: Configuration.Indexing,
+    databaseService: DatabaseService
 ) {
     private val files = mutableMapOf<URI, SourceFile>()
     private val parseDataWriteLock = ReentrantLock()

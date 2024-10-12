@@ -7,7 +7,7 @@ import org.eclipse.lsp4j.InlayHint
 import org.eclipse.lsp4j.InlayHintKind
 import org.eclipse.lsp4j.jsonrpc.messages.Either
 import org.javacs.kt.CompiledFile
-import org.javacs.kt.InlayHintsConfiguration
+import org.javacs.kt.Configuration
 import org.javacs.kt.completion.DECL_RENDERER
 import org.javacs.kt.position.range
 import org.javacs.kt.util.preOrderTraversal
@@ -95,7 +95,7 @@ private fun callableArgNameHints(
     acc: MutableList<InlayHint>,
     callExpression: KtCallExpression,
     file: CompiledFile,
-    config: InlayHintsConfiguration
+    config: Configuration.InlayHints
 ) {
     if (!config.parameterHints) return
 
@@ -129,7 +129,7 @@ private fun lambdaValueParamHints(
     acc: MutableList<InlayHint>,
     node: KtLambdaArgument,
     file: CompiledFile,
-    config: InlayHintsConfiguration
+    config: Configuration.InlayHints
 ) {
     if (!config.typeHints) return
 
@@ -152,7 +152,7 @@ private fun chainedExpressionHints(
     acc: MutableList<InlayHint>,
     node: KtDotQualifiedExpression,
     file: CompiledFile,
-    config: InlayHintsConfiguration
+    config: Configuration.InlayHints
 ) {
     if (!config.chainedHints) return
 
@@ -172,7 +172,7 @@ private fun destructuringVarHints(
     acc: MutableList<InlayHint>,
     node: KtDestructuringDeclaration,
     file: CompiledFile,
-    config: InlayHintsConfiguration
+    config: Configuration.InlayHints
 ) {
     if (!config.typeHints) return
 
@@ -187,11 +187,11 @@ private fun declarationHint(
     acc: MutableList<InlayHint>,
     node: KtProperty,
     file: CompiledFile,
-    config: InlayHintsConfiguration
+    config: Configuration.InlayHints
 ) {
     if (!config.typeHints) return
 
-    //check decleration does not include type i.e. var t1: String
+    //check declaration does not include type i.e. var t1: String
     if (node.typeReference != null) return
 
     val hint = node.hintBuilder(InlayKind.TypeHint, file) ?: return
@@ -202,7 +202,7 @@ private fun functionHint(
     acc: MutableList<InlayHint>,
     node: KtNamedFunction,
     file: CompiledFile,
-    config: InlayHintsConfiguration
+    config: Configuration.InlayHints
 ) {
     if (!config.typeHints) return
 
@@ -214,7 +214,7 @@ private fun functionHint(
     }
 }
 
-fun provideHints(file: CompiledFile, config: InlayHintsConfiguration): List<InlayHint> {
+fun provideHints(file: CompiledFile, config: Configuration.InlayHints): List<InlayHint> {
     val res = mutableListOf<InlayHint>()
     for (node in file.parse.preOrderTraversal().asIterable()) {
         when (node) {

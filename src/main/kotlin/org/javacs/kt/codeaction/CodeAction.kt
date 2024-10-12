@@ -5,7 +5,7 @@ import org.eclipse.lsp4j.jsonrpc.messages.Either
 import org.javacs.kt.CompiledFile
 import org.javacs.kt.codeaction.quickfix.ImplementAbstractMembersQuickFix
 import org.javacs.kt.codeaction.quickfix.AddMissingImportsQuickFix
-import org.javacs.kt.command.JAVA_TO_KOTLIN_COMMAND
+import org.javacs.kt.JAVA_TO_KOTLIN_COMMAND
 import org.javacs.kt.util.toPath
 import org.javacs.kt.index.SymbolIndex
 

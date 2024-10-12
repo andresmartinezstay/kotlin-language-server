@@ -20,7 +20,7 @@ class DiagnosticTest : SingleFileTestFixture("diagnostic", "Diagnostics.kt") {
     }
 
     @Test fun `report only errors`() {
-        KotlinLanguageServer.config.diagnostics.level = DiagnosticSeverity.Error
+        languageServer.config.diagnostics.level = DiagnosticSeverity.Error
 
         // Trigger a diagnostics update via a dummy change.
         replace(file, 6, 1, "", " ")
@@ -32,7 +32,7 @@ class DiagnosticTest : SingleFileTestFixture("diagnostic", "Diagnostics.kt") {
     }
 
     @Test fun `disable diagnostics`() {
-        KotlinLanguageServer.config.diagnostics.enabled = false
+        languageServer.config.diagnostics.enabled = false
 
         // Trigger a diagnostics update via a dummy change.
         replace(file, 1, 1, "", " ")

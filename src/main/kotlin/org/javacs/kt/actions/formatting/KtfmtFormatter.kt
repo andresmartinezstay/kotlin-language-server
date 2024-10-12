@@ -1,11 +1,11 @@
-package org.javacs.kt.formatting
+package org.javacs.kt.actions.formatting
 
-import org.javacs.kt.KtfmtConfiguration
+import org.javacs.kt.Configuration
 import com.facebook.ktfmt.format.Formatter as Ktfmt
 import com.facebook.ktfmt.format.FormattingOptions as KtfmtOptions
 import org.eclipse.lsp4j.FormattingOptions as LspFormattingOptions
 
-class KtfmtFormatter(private val config: KtfmtConfiguration) : Formatter {
+class KtfmtFormatter(private val config: Configuration.Formatting.Ktfmt) : Formatter {
     override fun format(
         code: String,
         options: LspFormattingOptions,

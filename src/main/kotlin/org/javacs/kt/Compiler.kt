@@ -1,7 +1,7 @@
 @file:OptIn(ExperimentalCompilerApi::class)
 @file:Suppress("DEPRECATION")
 
-package org.javacs.kt.compiler
+package org.javacs.kt
 
 import com.intellij.lang.Language
 import com.intellij.openapi.util.Disposer
@@ -53,10 +53,6 @@ import kotlin.script.experimental.host.ScriptingHostConfiguration
 import kotlin.script.experimental.host.configurationDependencies
 import kotlin.script.experimental.jvm.defaultJvmScriptingHostConfiguration
 import kotlin.script.experimental.jvm.JvmDependency
-import org.javacs.kt.LOG
-import org.javacs.kt.CodegenConfiguration
-import org.javacs.kt.CompilerConfiguration
-import org.javacs.kt.ScriptsConfiguration
 import org.javacs.kt.util.KotlinLSException
 import org.javacs.kt.util.LoggingMessageCollector
 import org.jetbrains.kotlin.cli.common.output.writeAllTo
@@ -86,7 +82,7 @@ private val GRADLE_DSL_DEPENDENCY_PATTERN = Regex("^gradle-(?:kotlin-dsl|core).*
 private class CompilationEnvironment(
     javaSourcePath: Set<Path>,
     classPath: Set<Path>,
-    scriptsConfig: ScriptsConfiguration
+    scriptsConfig: Configuration.Scripts
 ) : Closeable {
     private val disposable = Disposer.newDisposable()
 
@@ -412,7 +408,7 @@ private class CompilationEnvironment(
         scripts = ScriptDefinitionProvider.getInstance(project)!! as CliScriptDefinitionProvider
     }
 
-    fun updateConfiguration(config: CompilerConfiguration) {
+    fun updateConfiguration(config: Configuration.Compiler) {
         JvmTarget.fromString(config.jvm.target)
             ?.let { environment.configuration.put(JVMConfigurationKeys.JVM_TARGET, it) }
     }
@@ -455,8 +451,8 @@ class Compiler(
     javaSourcePath: Set<Path>,
     classPath: Set<Path>,
     buildScriptClassPath: Set<Path> = emptySet(),
-    scriptsConfig: ScriptsConfiguration,
-    private val codegenConfig: CodegenConfiguration,
+    scriptsConfig: Configuration.Scripts,
+    private val codegenConfig: Configuration.Codegen,
     private val outputDirectory: File,
 ) : Closeable {
     private var closed = false
@@ -477,7 +473,7 @@ class Compiler(
      * Updates the compiler environment using the given
      * configuration (which is a class from this project).
      */
-    fun updateConfiguration(config: CompilerConfiguration) {
+    fun updateConfiguration(config: Configuration.Compiler) {
         defaultCompileEnvironment.updateConfiguration(config)
         buildScriptCompileEnvironment?.updateConfiguration(config)
     }

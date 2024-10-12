@@ -2,7 +2,6 @@ package org.javacs.kt
 
 import org.javacs.kt.classpath.ClassPathEntry
 import org.javacs.kt.classpath.defaultClassPathResolver
-import org.javacs.kt.compiler.Compiler
 import org.javacs.kt.database.DatabaseService
 import org.javacs.kt.util.AsyncExecutor
 import java.io.Closeable
@@ -16,9 +15,9 @@ import java.nio.file.Path
  * and the compiler. Note that Kotlin sources are stored in SourcePath.
  */
 class CompilerClassPath(
-    private val config: CompilerConfiguration,
-    private val scriptsConfig: ScriptsConfiguration,
-    private val codegenConfig: CodegenConfiguration,
+    private val config: Configuration.Compiler,
+    private val scriptsConfig: Configuration.Scripts,
+    private val codegenConfig: Configuration.Codegen,
     private val databaseService: DatabaseService
 ) : Closeable {
     val workspaceRoots = mutableSetOf<Path>()

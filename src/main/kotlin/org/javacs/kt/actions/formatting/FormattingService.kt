@@ -1,12 +1,11 @@
-package org.javacs.kt.formatting
+package org.javacs.kt.actions.formatting
 
 import org.javacs.kt.Configuration
-import org.javacs.kt.FormattingConfiguration
-import org.eclipse.lsp4j.FormattingOptions as LspFromattingOptions
+import org.eclipse.lsp4j.FormattingOptions as LspFormattingOptions
 
 private const val DEFAULT_INDENT = 4
 
-class FormattingService(private val config: FormattingConfiguration) {
+class FormattingService(private val config: Configuration.Formatting) {
 
     private val formatter: Formatter get() = when (config.formatter) {
         "ktfmt" -> KtfmtFormatter(config.ktfmt)
@@ -16,6 +15,6 @@ class FormattingService(private val config: FormattingConfiguration) {
 
     fun formatKotlinCode(
         code: String,
-        options: LspFromattingOptions = LspFromattingOptions(DEFAULT_INDENT, true)
+        options: LspFormattingOptions = LspFormattingOptions(DEFAULT_INDENT, true)
     ): String = this.formatter.format(code, options)
 }

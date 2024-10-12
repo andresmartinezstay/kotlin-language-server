@@ -12,78 +12,13 @@ import java.nio.file.InvalidPathException
 import java.nio.file.Path
 import java.nio.file.Paths
 
-data class SnippetsConfiguration(
-    /** Whether code completion should return VSCode-style snippets. */
-    var enabled: Boolean = true
-)
-
-data class CodegenConfiguration(
-    /** Whether to enable code generation to a temporary build directory for Java interoperability. */
-    var enabled: Boolean = false
-)
-
-data class CompletionConfiguration(
-    val snippets: SnippetsConfiguration = SnippetsConfiguration()
-)
-
-data class DiagnosticsConfiguration(
-    /** Whether diagnostics are enabled. */
-    var enabled: Boolean = true,
-    /** The minimum severity of enabled diagnostics. */
-    var level: DiagnosticSeverity = DiagnosticSeverity.Hint,
-    /** The time interval between subsequent lints in ms. */
-    var debounceTime: Long = 250L
-)
-
-data class JVMConfiguration(
-    /** Which JVM target the Kotlin compiler uses. See Compiler.jvmTargetFrom for possible values. */
-    var target: String = "default"
-)
-
-data class CompilerConfiguration(
-    val jvm: JVMConfiguration = JVMConfiguration()
-)
-
-data class IndexingConfiguration(
-    /** Whether an index of global symbols should be built in the background. */
-    var enabled: Boolean = true
-)
-
-data class ExternalSourcesConfiguration(
-    /** Whether kls-URIs should be sent to the client to describe classes in JARs. */
-    var useKlsScheme: Boolean = false,
-    /** Whether external classes should be automatically converted to Kotlin. */
-    var autoConvertToKotlin: Boolean = false
-)
-
-data class InlayHintsConfiguration(
-    var typeHints: Boolean = false,
-    var parameterHints: Boolean = false,
-    var chainedHints: Boolean = false
-)
-
-data class KtfmtConfiguration(
-    var style: String = "google",
-    var indent: Int = 4,
-    var maxWidth: Int = 100,
-    var continuationIndent: Int = 8,
-    var removeUnusedImports: Boolean = true,
-)
-
-data class FormattingConfiguration(
-    var formatter: String = "ktfmt",
-    var ktfmt: KtfmtConfiguration = KtfmtConfiguration()
-)
-
 fun getStoragePath(params: InitializeParams): Path? {
-    params.initializationOptions?.let { initializationOptions ->
-        val gson = GsonBuilder().registerTypeHierarchyAdapter(Path::class.java, GsonPathConverter()).create()
-        val options = gson.fromJson(initializationOptions as JsonElement, InitializationOptions::class.java)
+    if (params.initializationOptions == null) return null
 
-        return options?.storagePath
-    }
+    val gson = GsonBuilder().registerTypeHierarchyAdapter(Path::class.java, GsonPathConverter()).create()
+    val options = gson.fromJson(params.initializationOptions as JsonElement, InitializationOptions::class.java)
 
-    return null
+    return options?.storagePath
 }
 
 data class InitializationOptions(
@@ -105,13 +40,75 @@ class GsonPathConverter : JsonDeserializer<Path?> {
 }
 
 data class Configuration(
-    val codegen: CodegenConfiguration = CodegenConfiguration(),
-    val compiler: CompilerConfiguration = CompilerConfiguration(),
-    val completion: CompletionConfiguration = CompletionConfiguration(),
-    val diagnostics: DiagnosticsConfiguration = DiagnosticsConfiguration(),
-    val scripts: ScriptsConfiguration = ScriptsConfiguration(),
-    val indexing: IndexingConfiguration = IndexingConfiguration(),
-    val externalSources: ExternalSourcesConfiguration = ExternalSourcesConfiguration(),
-    val inlayHints: InlayHintsConfiguration = InlayHintsConfiguration(),
-    val formatting: FormattingConfiguration = FormattingConfiguration(),
-)
+    val codegen: Codegen = Codegen(),
+    val compiler: Compiler = Compiler(),
+    val completion: Completion = Completion(),
+    val diagnostics: Diagnostics = Diagnostics(),
+    val scripts: Scripts = Scripts(),
+    val indexing: Indexing = Indexing(),
+    val externalSources: ExternalSources = ExternalSources(),
+    val inlayHints: InlayHints = InlayHints(),
+    val formatting: Formatting = Formatting(),
+) {
+    data class Codegen(
+        /** Whether to enable code generation to a temporary build directory for Java interoperability. */
+        var enabled: Boolean = false
+    )
+    data class Compiler(
+        val jvm: JVM = JVM()
+    ) {
+        data class JVM(
+            /** Which JVM target the Kotlin compiler uses. See Compiler.jvmTargetFrom for possible values. */
+            var target: String = "default"
+        )
+    }
+    data class Completion(
+        val snippets: Snippets = Snippets()
+    ) {
+        data class Snippets(
+            /** Whether code completion should return VSCode-style snippets. */
+            var enabled: Boolean = true
+        )
+    }
+    data class Diagnostics(
+        /** Whether diagnostics are enabled. */
+        var enabled: Boolean = true,
+        /** The minimum severity of enabled diagnostics. */
+        var level: DiagnosticSeverity = DiagnosticSeverity.Hint,
+        /** The time interval between subsequent lints in ms. */
+        var debounceTime: Long = 250L
+    )
+    data class Scripts(
+        /** Whether .kts scripts are handled. */
+        var enabled: Boolean = false,
+        /** Whether .gradle.kts scripts are handled. Only considered if scripts are enabled in general. */
+        var buildScriptsEnabled: Boolean = false
+    )
+    data class Indexing(
+        /** Whether an index of global symbols should be built in the background. */
+        var enabled: Boolean = true
+    )
+    data class ExternalSources(
+        /** Whether kls-URIs should be sent to the client to describe classes in JARs. */
+        var useKlsScheme: Boolean = false,
+        /** Whether external classes should be automatically converted to Kotlin. */
+        var autoConvertToKotlin: Boolean = false
+    )
+    data class InlayHints(
+        var typeHints: Boolean = false,
+        var parameterHints: Boolean = false,
+        var chainedHints: Boolean = false
+    )
+    data class Formatting(
+        var formatter: String = "ktfmt",
+        var ktfmt: Ktfmt = Ktfmt()
+    ) {
+        data class Ktfmt(
+            var style: String = "google",
+            var indent: Int = 4,
+            var maxWidth: Int = 100,
+            var continuationIndent: Int = 8,
+            var removeUnusedImports: Boolean = true,
+        )
+    }
+}

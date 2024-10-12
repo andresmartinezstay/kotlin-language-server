@@ -1,7 +1,6 @@
 package org.javacs.kt
 
 import org.hamcrest.Matchers.equalTo
-import org.javacs.kt.compiler.Compiler
 import org.javacs.kt.database.DatabaseService
 import org.junit.AfterClass
 import org.junit.Assert.assertThat
@@ -29,14 +28,14 @@ class CompiledFileTest {
     fun compileFile(): CompiledFile = Compiler(
         javaSourcePath = setOf(),
         classPath = setOf(),
-        scriptsConfig = ScriptsConfiguration(),
-        codegenConfig = CodegenConfiguration(),
+        scriptsConfig = Configuration.Scripts(),
+        codegenConfig = Configuration.Codegen(),
         outputDirectory = outputDirectory
     ).use { compiler ->
         val file = testResourcesRoot().resolve("compiledFile/CompiledFileExample.kt")
         val content = Files.readAllLines(file).joinToString("\n")
         val parse = compiler.createKtFile(content, file)
-        val classPath = CompilerClassPath(CompilerConfiguration(), ScriptsConfiguration(), CodegenConfiguration(), DatabaseService())
+        val classPath = CompilerClassPath(Configuration.Compiler(), Configuration.Scripts(), Configuration.Codegen(), DatabaseService())
         val sourcePath = listOf(parse)
         val (context, container) = compiler.compileKtFiles(sourcePath, sourcePath)
         CompiledFile(content, parse, context, container, sourcePath, classPath)

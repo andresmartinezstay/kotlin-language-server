@@ -1,4 +1,4 @@
-package org.javacs.kt.signaturehelp
+package org.javacs.kt.actions
 
 import org.eclipse.lsp4j.ParameterInformation
 import org.eclipse.lsp4j.SignatureHelp
@@ -39,7 +39,6 @@ fun getDocString(file: CompiledFile, cursor: Int): String {
 }
 
 // TODO better function name?
-@Suppress("ReturnCount")
 private fun getSignatureTriplet(file: CompiledFile, cursor: Int): Triple<List<SignatureInformation>, Int?, Int?>? {
     val call = file.parseAtPoint(cursor)?.findParent<KtCallExpression>() ?: return null
     val candidates = candidates(call, file)
@@ -125,7 +124,6 @@ private fun isCompatibleWith(call: KtCallExpression, candidate: CallableDescript
     return true
 }
 
-@Suppress("ReturnCount")
 private fun activeParameter(call: KtCallExpression, cursor: Int): Int? {
     val args = call.valueArgumentList ?: return null
     val text = args.text

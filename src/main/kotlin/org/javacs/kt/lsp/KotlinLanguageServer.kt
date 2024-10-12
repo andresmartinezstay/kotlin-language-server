@@ -6,7 +6,6 @@ import org.eclipse.lsp4j.jsonrpc.services.JsonDelegate
 import org.eclipse.lsp4j.services.LanguageClient
 import org.eclipse.lsp4j.services.LanguageClientAware
 import org.eclipse.lsp4j.services.LanguageServer
-import org.eclipse.lsp4j.services.NotebookDocumentService
 import org.javacs.kt.CompilerClassPath
 import org.javacs.kt.Configuration
 import org.javacs.kt.KotlinProtocolExtensionService
@@ -17,16 +16,16 @@ import org.javacs.kt.LogMessage
 import org.javacs.kt.SourceFiles
 import org.javacs.kt.SourcePath
 import org.javacs.kt.URIContentProvider
-import org.javacs.kt.command.ALL_COMMANDS
+import org.javacs.kt.ALL_COMMANDS
 import org.javacs.kt.database.DatabaseService
+import org.javacs.kt.externalsources.*
+import org.javacs.kt.getStoragePath
 import org.javacs.kt.progress.LanguageClientProgress
 import org.javacs.kt.progress.Progress
 import org.javacs.kt.semantictokens.semanticTokensLegend
 import org.javacs.kt.util.AsyncExecutor
 import org.javacs.kt.util.TemporaryDirectory
 import org.javacs.kt.util.parseURI
-import org.javacs.kt.externalsources.*
-import org.javacs.kt.getStoragePath
 import java.io.Closeable
 import java.nio.file.Paths
 import java.util.concurrent.CompletableFuture

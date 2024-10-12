@@ -1,12 +1,8 @@
-package org.javacs.kt.highlight
+package org.javacs.kt.actions
 
 import org.eclipse.lsp4j.DocumentHighlight
 import org.eclipse.lsp4j.DocumentHighlightKind
-import org.eclipse.lsp4j.Location
 import org.javacs.kt.CompiledFile
-import org.javacs.kt.position.range
-import org.javacs.kt.references.findReferencesToDeclarationInFile
-import org.javacs.kt.util.findParent
 import org.jetbrains.kotlin.psi.KtFile
 import org.jetbrains.kotlin.psi.KtNamedDeclaration
 

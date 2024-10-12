@@ -1,12 +1,12 @@
-package org.javacs.kt.definition
+package org.javacs.kt.actions
 
 import org.eclipse.lsp4j.Location
 import org.eclipse.lsp4j.Range
 import java.nio.file.Path
 import org.javacs.kt.CompiledFile
 import org.javacs.kt.CompilerClassPath
+import org.javacs.kt.Configuration
 import org.javacs.kt.LOG
-import org.javacs.kt.ExternalSourcesConfiguration
 import org.javacs.kt.externalsources.ClassContentProvider
 import org.javacs.kt.externalsources.toKlsURI
 import org.javacs.kt.externalsources.KlsURI
@@ -30,7 +30,7 @@ fun goToDefinition(
     cursor: Int,
     classContentProvider: ClassContentProvider,
     tempDir: TemporaryDirectory,
-    config: ExternalSourcesConfiguration,
+    config: Configuration.ExternalSources,
     cp: CompilerClassPath
 ): Location? {
     val (_, target) = file.referenceExpressionAtPoint(cursor) ?: return null
@@ -93,4 +93,4 @@ fun goToDefinition(
 private fun isInsideArchive(uri: String, cp: CompilerClassPath) =
     uri.contains(".jar!") || uri.contains(".zip!") || cp.javaHome?.let {
         Paths.get(parseURI(uri)).toString().startsWith(File(it).path)
-    } ?: false
+    } == true

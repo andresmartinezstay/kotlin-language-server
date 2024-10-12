@@ -6,7 +6,7 @@ import org.eclipse.lsp4j.CompletionItemKind
 import org.eclipse.lsp4j.CompletionItemTag
 import org.eclipse.lsp4j.CompletionList
 import org.javacs.kt.CompiledFile
-import org.javacs.kt.CompletionConfiguration
+import org.javacs.kt.Configuration
 import org.javacs.kt.LOG
 import org.javacs.kt.imports.getImportTextEditEntry
 import org.javacs.kt.index.Symbol
@@ -53,7 +53,7 @@ private const val MAX_COMPLETION_ITEMS = 75
 private const val MIN_SORT_LENGTH = 3
 
 /** Finds completions at the specified position. */
-fun completions(file: CompiledFile, cursor: Int, index: SymbolIndex, config: CompletionConfiguration): CompletionList {
+fun completions(file: CompiledFile, cursor: Int, index: SymbolIndex, config: Configuration.Completion): CompletionList {
     val partial = findPartialIdentifier(file, cursor)
     LOG.debug("Looking for completions that match '{}'", partial)
 
@@ -144,7 +144,7 @@ private fun indexCompletionItems(file: CompiledFile, cursor: Int, element: KtEle
 
 /** Finds keyword completions starting with the given partial identifier. */
 private fun keywordCompletionItems(partial: String): Sequence<CompletionItem> =
-    (KtTokens.SOFT_KEYWORDS.getTypes() + KtTokens.KEYWORDS.getTypes()).asSequence()
+    (KtTokens.SOFT_KEYWORDS.types + KtTokens.KEYWORDS.types).asSequence()
         .mapNotNull { (it as? KtKeywordToken)?.value }
         .filter { it.startsWith(partial) }
         .map { CompletionItem().apply {
@@ -155,7 +155,7 @@ private fun keywordCompletionItems(partial: String): Sequence<CompletionItem> =
 data class ElementCompletionItems(val items: Sequence<CompletionItem>, val element: KtElement? = null)
 
 /** Finds completions based on the element around the user's cursor. */
-private fun elementCompletionItems(file: CompiledFile, cursor: Int, config: CompletionConfiguration, partial: String): ElementCompletionItems {
+private fun elementCompletionItems(file: CompiledFile, cursor: Int, config: Configuration.Completion, partial: String): ElementCompletionItems {
     val (surroundingElement, isGlobal) = completableElement(file, cursor) ?: return ElementCompletionItems(emptySequence())
     val completions = elementCompletions(file, cursor, surroundingElement, isGlobal)
         .applyIf(isGlobal) { filter { declarationIsInfix(it) } }
@@ -172,7 +172,7 @@ private fun elementCompletionItems(file: CompiledFile, cursor: Int, config: Comp
 private val callPattern = Regex("(.*)\\((?:\\$\\d+)?\\)(?:\\$0)?")
 private val methodSignature = Regex("""(?:fun|constructor) (?:<(?:[a-zA-Z\?\!\: ]+)(?:, [A-Z])*> )?([a-zA-Z]+\(.*\))""")
 
-private fun completionItem(d: DeclarationDescriptor, surroundingElement: KtElement, file: CompiledFile, config: CompletionConfiguration): CompletionItem {
+private fun completionItem(d: DeclarationDescriptor, surroundingElement: KtElement, file: CompiledFile, config: Configuration.Completion): CompletionItem {
     val renderWithSnippets = config.snippets.enabled
         && surroundingElement !is KtCallableReferenceExpression
         && surroundingElement !is KtImportDirective
