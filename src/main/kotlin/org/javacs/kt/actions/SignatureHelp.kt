@@ -5,10 +5,9 @@ import org.eclipse.lsp4j.SignatureHelp
 import org.eclipse.lsp4j.SignatureInformation
 import org.javacs.kt.CompiledFile
 import org.javacs.kt.LOG
-import org.javacs.kt.completion.DECL_RENDERER
-import org.javacs.kt.completion.identifierOverloads
-import org.javacs.kt.completion.memberOverloads
-import org.javacs.kt.docs.findDoc
+import org.javacs.kt.actions.completion.DECL_RENDERER
+import org.javacs.kt.actions.completion.identifierOverloads
+import org.javacs.kt.actions.completion.memberOverloads
 import org.javacs.kt.util.findParent
 import org.javacs.kt.util.nullResult
 import org.jetbrains.kotlin.descriptors.CallableDescriptor

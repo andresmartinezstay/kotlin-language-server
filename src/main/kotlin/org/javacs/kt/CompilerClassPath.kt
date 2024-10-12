@@ -2,7 +2,6 @@ package org.javacs.kt
 
 import org.javacs.kt.classpath.ClassPathEntry
 import org.javacs.kt.classpath.defaultClassPathResolver
-import org.javacs.kt.database.DatabaseService
 import org.javacs.kt.util.AsyncExecutor
 import java.io.Closeable
 import java.io.File
@@ -148,11 +147,14 @@ class CompilerClassPath(
     fun changedOnDisk(file: Path): Boolean {
         val buildScript = isBuildScript(file)
         val javaSource = isJavaSource(file)
-        if (buildScript || javaSource) {
-            return refresh(updateClassPath = buildScript, updateBuildScriptClassPath = false, updateJavaSourcePath = javaSource)
-        } else {
-            return false
-        }
+
+        if (!buildScript && !javaSource) return false
+
+        return refresh(
+            updateClassPath = buildScript,
+            updateBuildScriptClassPath = false,
+            updateJavaSourcePath = javaSource
+        )
     }
 
     private fun isJavaSource(file: Path): Boolean = file.fileName.toString().endsWith(".java")

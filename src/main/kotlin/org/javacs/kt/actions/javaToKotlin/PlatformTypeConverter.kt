@@ -1,4 +1,4 @@
-package org.javacs.kt.javaToKotlin
+package org.javacs.kt.actions.javaToKotlin
 
 private val platformImports = setOf(
     "java.util.List",

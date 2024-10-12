@@ -2,7 +2,6 @@ package org.javacs.kt.actions
 
 import org.eclipse.lsp4j.DiagnosticSeverity
 import org.eclipse.lsp4j.DiagnosticTag
-import org.javacs.kt.position.range
 import org.javacs.kt.util.toPath
 import org.jetbrains.kotlin.diagnostics.Severity
 import org.jetbrains.kotlin.diagnostics.rendering.DefaultErrorMessages

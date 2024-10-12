@@ -1,4 +1,4 @@
-package org.javacs.kt.overridemembers
+package org.javacs.kt.actions
 
 import org.eclipse.lsp4j.CodeAction
 import org.eclipse.lsp4j.Position
@@ -7,7 +7,6 @@ import org.eclipse.lsp4j.TextEdit
 import org.eclipse.lsp4j.WorkspaceEdit
 import org.javacs.kt.CompiledFile
 import org.javacs.kt.util.toPath
-import org.javacs.kt.position.position
 import org.jetbrains.kotlin.psi.KtClass
 import org.jetbrains.kotlin.psi.KtTypeArgumentList
 import org.jetbrains.kotlin.psi.KtSuperTypeListEntry
@@ -23,11 +22,8 @@ import org.jetbrains.kotlin.descriptors.FunctionDescriptor
 import org.jetbrains.kotlin.descriptors.isInterface
 import org.jetbrains.kotlin.descriptors.PropertyDescriptor
 import org.jetbrains.kotlin.descriptors.MemberDescriptor
-import org.jetbrains.kotlin.js.resolve.diagnostics.findPsi
 import org.jetbrains.kotlin.psi.psiUtil.endOffset
-import org.jetbrains.kotlin.psi.psiUtil.isAbstract
 import org.jetbrains.kotlin.psi.psiUtil.startOffset
-import org.jetbrains.kotlin.psi.psiUtil.unwrapNullability
 import org.jetbrains.kotlin.types.TypeProjection
 import org.jetbrains.kotlin.types.KotlinType
 import org.jetbrains.kotlin.lexer.KtTokens
@@ -228,7 +224,7 @@ fun createVariableStub(variable: PropertyDescriptor): String {
 
 // about types: regular Kotlin types are marked T or T?, but types from Java are (T..T?) because
 // nullability cannot be decided.
-// Therefore we have to unpack in case we have the Java type. Fortunately, the Java types are not
+// Therefore, we have to unpack in case we have the Java type. Fortunately, the Java types are not
 // marked nullable, so we default to non nullable types. Let the user decide if they want nullable
 // types instead. With this implementation Kotlin types also keeps their nullability
 private fun KotlinType.unwrappedType(): KotlinType =

@@ -17,12 +17,12 @@ import org.javacs.kt.SourceFiles
 import org.javacs.kt.SourcePath
 import org.javacs.kt.URIContentProvider
 import org.javacs.kt.ALL_COMMANDS
-import org.javacs.kt.database.DatabaseService
+import org.javacs.kt.DatabaseService
 import org.javacs.kt.externalsources.*
 import org.javacs.kt.getStoragePath
-import org.javacs.kt.progress.LanguageClientProgress
-import org.javacs.kt.progress.Progress
-import org.javacs.kt.semantictokens.semanticTokensLegend
+import org.javacs.kt.LanguageClientProgress
+import org.javacs.kt.Progress
+import org.javacs.kt.actions.semanticTokensLegend
 import org.javacs.kt.util.AsyncExecutor
 import org.javacs.kt.util.TemporaryDirectory
 import org.javacs.kt.util.parseURI

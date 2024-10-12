@@ -1,4 +1,4 @@
-package org.javacs.kt.completion
+package org.javacs.kt.actions.completion
 
 import com.google.common.cache.CacheBuilder
 import org.eclipse.lsp4j.CompletionItem
@@ -8,7 +8,7 @@ import org.eclipse.lsp4j.CompletionList
 import org.javacs.kt.CompiledFile
 import org.javacs.kt.Configuration
 import org.javacs.kt.LOG
-import org.javacs.kt.imports.getImportTextEditEntry
+import org.javacs.kt.actions.getImportTextEditEntry
 import org.javacs.kt.index.Symbol
 import org.javacs.kt.index.SymbolIndex
 import org.javacs.kt.util.containsCharactersInOrder

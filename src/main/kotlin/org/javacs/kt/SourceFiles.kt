@@ -77,20 +77,20 @@ class SourceFiles(
     }
 
     fun close(uri: URI) {
-        if (uri in open) {
-            open.remove(uri)
-            val removed = files.removeIfTemporary(uri)
+        if (uri !in open) return
 
-            if (!removed) {
-                val disk = readFromDisk(uri, temporary = false)
+        open.remove(uri)
+        val removed = files.removeIfTemporary(uri)
+        if (removed) return
 
-                if (disk != null) {
-                    files[uri] = disk
-                } else {
-                    files.remove(uri)
-                }
-            }
+        val disk = readFromDisk(uri, temporary = false)
+
+        if (disk != null) {
+            files[uri] = disk
+        } else {
+            files.remove(uri)
         }
+
     }
 
     fun edit(uri: URI, newVersion: Int, contentChanges: List<TextDocumentContentChangeEvent>) {

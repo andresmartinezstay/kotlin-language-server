@@ -3,10 +3,10 @@ package org.javacs.kt
 import org.hamcrest.Matchers.*
 import org.junit.Assert.assertThat
 import org.junit.Test
-import org.javacs.kt.semantictokens.encodeTokens
-import org.javacs.kt.semantictokens.SemanticToken
-import org.javacs.kt.semantictokens.SemanticTokenType
-import org.javacs.kt.semantictokens.SemanticTokenModifier
+import org.javacs.kt.actions.encodeTokens
+import org.javacs.kt.actions.SemanticToken
+import org.javacs.kt.actions.SemanticTokenType
+import org.javacs.kt.actions.SemanticTokenModifier
 
 class SemanticTokensTest : SingleFileTestFixture("semantictokens", "SemanticTokens.kt") {
     @Test fun `tokenize file`() {

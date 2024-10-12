@@ -16,8 +16,7 @@ import org.jetbrains.kotlin.resolve.BindingContext
 import org.jetbrains.kotlin.resolve.DescriptorUtils
 import org.jetbrains.kotlin.resolve.calls.callUtil.getType
 import org.javacs.kt.CompiledFile
-import org.javacs.kt.completion.DECL_RENDERER
-import org.javacs.kt.position.position
+import org.javacs.kt.actions.completion.DECL_RENDERER
 import org.javacs.kt.util.findParent
 import org.jetbrains.kotlin.utils.IDEAPluginsCompatibilityAPI
 

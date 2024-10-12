@@ -5,10 +5,10 @@ import org.eclipse.lsp4j.services.WorkspaceService
 import org.eclipse.lsp4j.services.LanguageClient
 import org.eclipse.lsp4j.services.LanguageClientAware
 import org.eclipse.lsp4j.jsonrpc.messages.Either
-import org.javacs.kt.symbols.workspaceSymbols
+import org.javacs.kt.actions.workspaceSymbols
 import org.javacs.kt.JAVA_TO_KOTLIN_COMMAND
-import org.javacs.kt.javaToKotlin.convertJavaToKotlin
-import org.javacs.kt.position.extractRange
+import org.javacs.kt.actions.javaToKotlin.convertJavaToKotlin
+import org.javacs.kt.actions.extractRange
 import org.javacs.kt.util.filePath
 import org.javacs.kt.util.parseURI
 import java.nio.file.Paths

@@ -7,8 +7,8 @@ import org.jetbrains.kotlin.resolve.scopes.DescriptorKindFilter
 import org.jetbrains.kotlin.resolve.descriptorUtil.fqNameSafe
 import org.jetbrains.kotlin.name.FqName
 import org.javacs.kt.LOG
-import org.javacs.kt.database.DatabaseService
-import org.javacs.kt.progress.Progress
+import org.javacs.kt.DatabaseService
+import org.javacs.kt.Progress
 import org.jetbrains.exposed.dao.IntEntity
 import org.jetbrains.exposed.dao.IntEntityClass
 import org.jetbrains.exposed.dao.id.EntityID
@@ -27,8 +27,6 @@ private object Symbols : IntIdTable() {
     val visibility = integer("visibility")
     val extensionReceiverType = varchar("extensionreceivertype", length = MAX_FQNAME_LENGTH).nullable()
     val location = optReference("location", Locations)
-
-    val byShortName = index("symbol_shortname_index", false, shortName)
 }
 
 private object Locations : IntIdTable() {

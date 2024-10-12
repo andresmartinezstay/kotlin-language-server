@@ -1,7 +1,6 @@
 package org.javacs.kt
 
 import org.hamcrest.Matchers.equalTo
-import org.javacs.kt.database.DatabaseService
 import org.junit.AfterClass
 import org.junit.Assert.assertThat
 import org.junit.Test

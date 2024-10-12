@@ -1,4 +1,4 @@
-package org.javacs.kt.resolve
+package org.javacs.kt.actions
 
 import java.io.File
 import org.jetbrains.kotlin.fileClasses.JvmFileClassUtil
@@ -7,7 +7,6 @@ import org.jetbrains.kotlin.psi.KtNamedFunction
 import org.jetbrains.kotlin.psi.KtClass
 import org.jetbrains.kotlin.psi.KtObjectDeclaration
 import org.javacs.kt.CompiledFile
-import org.javacs.kt.position.range
 import org.javacs.kt.util.partitionAroundLast
 import com.intellij.openapi.util.TextRange
 

@@ -1,4 +1,4 @@
-package org.javacs.kt.docs
+package org.javacs.kt.actions
 
 import org.javacs.kt.util.preOrderTraversal
 import org.jetbrains.kotlin.descriptors.DeclarationDescriptorWithSource

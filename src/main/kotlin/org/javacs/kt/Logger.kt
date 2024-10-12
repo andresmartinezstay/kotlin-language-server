@@ -110,10 +110,6 @@ class Logger {
 
     inline fun debug(msg: () -> String) = logWithLambdaAt(LogLevel.DEBUG, msg)
 
-    inline fun trace(msg: () -> String) = logWithLambdaAt(LogLevel.TRACE, msg)
-
-    inline fun deepTrace(msg: () -> String) = logWithLambdaAt(LogLevel.DEEP_TRACE, msg)
-
     fun connectJULFrontend() {
         val rootLogger = java.util.logging.Logger.getLogger("")
         rootLogger.addHandler(JULRedirector(this))

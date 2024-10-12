@@ -1,9 +1,8 @@
 package org.javacs.kt
 
-import org.javacs.kt.imports.getImportTextEditEntry
+import org.javacs.kt.actions.getImportTextEditEntry
 import org.jetbrains.kotlin.name.FqName
 import org.hamcrest.Matchers.*
-import org.javacs.kt.lsp.KotlinLanguageServer
 import org.junit.Assert.assertThat
 import org.junit.Test
 

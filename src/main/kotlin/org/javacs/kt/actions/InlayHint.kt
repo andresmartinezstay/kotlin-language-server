@@ -1,4 +1,4 @@
-package org.javacs.kt.inlayhints
+package org.javacs.kt.actions
 
 import com.intellij.psi.PsiElement
 import com.intellij.psi.PsiNameIdentifierOwner
@@ -8,8 +8,7 @@ import org.eclipse.lsp4j.InlayHintKind
 import org.eclipse.lsp4j.jsonrpc.messages.Either
 import org.javacs.kt.CompiledFile
 import org.javacs.kt.Configuration
-import org.javacs.kt.completion.DECL_RENDERER
-import org.javacs.kt.position.range
+import org.javacs.kt.actions.completion.DECL_RENDERER
 import org.javacs.kt.util.preOrderTraversal
 import org.jetbrains.kotlin.descriptors.CallableDescriptor
 import org.jetbrains.kotlin.lexer.KtTokens.DOT

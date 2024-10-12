@@ -1,4 +1,4 @@
-package org.javacs.kt.position
+package org.javacs.kt.actions
 
 import com.intellij.openapi.util.TextRange
 import com.intellij.psi.PsiElement

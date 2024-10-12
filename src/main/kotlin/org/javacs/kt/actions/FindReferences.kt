@@ -4,7 +4,6 @@ import org.eclipse.lsp4j.Location
 import org.eclipse.lsp4j.Range
 import org.javacs.kt.LOG
 import org.javacs.kt.SourcePath
-import org.javacs.kt.position.location
 import org.javacs.kt.util.emptyResult
 import org.javacs.kt.util.findParent
 import org.javacs.kt.util.preOrderTraversal

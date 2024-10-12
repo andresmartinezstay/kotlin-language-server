@@ -1,11 +1,10 @@
 package org.javacs.kt
 
-import org.javacs.kt.javaToKotlin.convertJavaToKotlin
+import org.javacs.kt.actions.javaToKotlin.convertJavaToKotlin
 import org.junit.Test
 import org.junit.Assert.assertThat
 import org.junit.Ignore
 import org.hamcrest.Matchers.equalTo
-import org.javacs.kt.lsp.KotlinLanguageServer
 
 class JavaToKotlinTest : LanguageServerTestFixture("j2k") {
     // TODO: Seems to throw the same exception as

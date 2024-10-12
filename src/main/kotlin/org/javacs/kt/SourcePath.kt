@@ -5,9 +5,7 @@ import org.javacs.kt.util.fileExtension
 import org.javacs.kt.util.filePath
 import org.javacs.kt.util.describeURI
 import org.javacs.kt.index.SymbolIndex
-import org.javacs.kt.progress.Progress
 import com.intellij.lang.Language
-import org.javacs.kt.database.DatabaseService
 import org.jetbrains.kotlin.descriptors.ModuleDescriptor
 import org.jetbrains.kotlin.psi.KtFile
 import org.jetbrains.kotlin.resolve.BindingContext

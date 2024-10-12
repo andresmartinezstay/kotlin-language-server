@@ -1,6 +1,6 @@
 @file:Suppress("DEPRECATION")
 
-package org.javacs.kt.symbols
+package org.javacs.kt.actions
 
 import com.intellij.psi.PsiElement
 import org.eclipse.lsp4j.SymbolInformation
@@ -10,7 +10,6 @@ import org.eclipse.lsp4j.WorkspaceSymbol
 import org.eclipse.lsp4j.WorkspaceSymbolLocation
 import org.eclipse.lsp4j.jsonrpc.messages.Either
 import org.javacs.kt.SourcePath
-import org.javacs.kt.position.range
 import org.javacs.kt.util.containsCharactersInOrder
 import org.javacs.kt.util.preOrderTraversal
 import org.javacs.kt.util.toPath

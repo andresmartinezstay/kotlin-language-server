@@ -585,13 +585,14 @@ class Compiler(
     }
 
     override fun close() {
-        if (!closed) {
-            defaultCompileEnvironment.close()
-            buildScriptCompileEnvironment?.close()
-            closed = true
-        } else {
+        if (closed) {
             LOG.warn("Compiler is already closed!")
+            return
         }
+
+        defaultCompileEnvironment.close()
+        buildScriptCompileEnvironment?.close()
+        closed = true
     }
 }
 

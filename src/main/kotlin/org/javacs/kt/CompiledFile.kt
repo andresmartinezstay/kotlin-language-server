@@ -2,11 +2,11 @@ package org.javacs.kt
 
 import com.intellij.openapi.util.TextRange
 import com.intellij.psi.PsiElement
-import org.javacs.kt.position.changedRegion
-import org.javacs.kt.position.location
-import org.javacs.kt.position.position
-import org.javacs.kt.position.range
-import org.javacs.kt.position.toURIString
+import org.javacs.kt.actions.changedRegion
+import org.javacs.kt.actions.location
+import org.javacs.kt.actions.position
+import org.javacs.kt.actions.range
+import org.javacs.kt.actions.toURIString
 import org.javacs.kt.util.findParent
 import org.javacs.kt.util.nullResult
 import org.javacs.kt.util.toPath
@@ -191,14 +191,12 @@ class CompiledFile(
         val (_, target) = referenceAtPoint(cursor) ?: return null
         val psi = target.findPsi()
 
-        return if (psi is KtNamedDeclaration) {
-            psi.nameIdentifier?.let {
-                location(it)?.let { location ->
-                    Pair(psi, location)
-                }
+        if (psi !is KtNamedDeclaration) return null
+
+        return psi.nameIdentifier?.let {
+            location(it)?.let { location ->
+                Pair(psi, location)
             }
-        } else {
-            null
         }
     }
 
@@ -211,11 +209,15 @@ class CompiledFile(
         // findDeclaration fails
         val declaration = elementAtPoint(cursor)?.findParent<KtNamedDeclaration>()
 
-        return declaration?.let {
-            Pair(it,
-                 Location(it.containingFile.toURIString(),
-                          range(content, it.nameIdentifier?.textRange ?: return null)))
-        }
+        if (declaration == null) return null
+
+        return Pair(
+            declaration,
+            Location(
+                declaration.containingFile.toURIString(),
+                range(content, declaration.nameIdentifier?.textRange ?: return null)
+            )
+        )
     }
 
     /**
@@ -226,14 +228,14 @@ class CompiledFile(
         val oldCursor = oldOffset(cursor)
         val path = parse.containingFile.toPath()
         return compile.getSliceContents(BindingContext.LEXICAL_SCOPE).asSequence()
-                .filter {
-                    it.key.textRange.startOffset <= oldCursor
-                    && oldCursor <= it.key.textRange.endOffset
-                    && it.key.containingFile.toPath() == path
-                }
-                .sortedBy { it.key.textRange.length  }
-                .map { it.value }
-                .firstOrNull()
+            .filter {
+                it.key.textRange.startOffset <= oldCursor
+                        && oldCursor <= it.key.textRange.endOffset
+                        && it.key.containingFile.toPath() == path
+            }
+            .sortedBy { it.key.textRange.length }
+            .map { it.value }
+            .firstOrNull()
     }
 
     fun lineBefore(cursor: Int): String = content.substring(0, cursor).substringAfterLast('\n')
@@ -271,8 +273,3 @@ class CompiledFile(
         return "$file ${start.line}:${start.character + 1}-${end.line + 1}:${end.character + 1}"
     }
 }
-
-const val JAVA_TO_KOTLIN_COMMAND = "convertJavaToKotlin"
-val ALL_COMMANDS = listOf(
-    JAVA_TO_KOTLIN_COMMAND,
-)

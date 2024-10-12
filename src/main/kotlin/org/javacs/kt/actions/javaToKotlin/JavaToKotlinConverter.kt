@@ -1,4 +1,4 @@
-package org.javacs.kt.javaToKotlin
+package org.javacs.kt.actions.javaToKotlin
 
 import com.intellij.lang.java.JavaLanguage
 // import org.jetbrains.kotlin.j2k.JavaToKotlinTranslator

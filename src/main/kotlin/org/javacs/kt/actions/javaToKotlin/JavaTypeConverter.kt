@@ -1,4 +1,4 @@
-package org.javacs.kt.javaToKotlin
+package org.javacs.kt.actions.javaToKotlin
 
 import org.javacs.kt.LOG
 import com.intellij.psi.*

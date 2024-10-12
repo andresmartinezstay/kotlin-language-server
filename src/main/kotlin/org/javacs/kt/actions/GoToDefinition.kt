@@ -10,9 +10,6 @@ import org.javacs.kt.LOG
 import org.javacs.kt.externalsources.ClassContentProvider
 import org.javacs.kt.externalsources.toKlsURI
 import org.javacs.kt.externalsources.KlsURI
-import org.javacs.kt.position.location
-import org.javacs.kt.position.isZero
-import org.javacs.kt.position.position
 import org.javacs.kt.util.partitionAroundLast
 import org.javacs.kt.util.TemporaryDirectory
 import org.javacs.kt.util.parseURI

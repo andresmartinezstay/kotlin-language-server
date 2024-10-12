@@ -1,6 +1,5 @@
-package org.javacs.kt.database
+package org.javacs.kt
 
-import org.javacs.kt.LOG
 import org.jetbrains.exposed.dao.IntEntity
 import org.jetbrains.exposed.dao.IntEntityClass
 import org.jetbrains.exposed.dao.id.EntityID

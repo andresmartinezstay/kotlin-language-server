@@ -1,4 +1,4 @@
-package org.javacs.kt.imports
+package org.javacs.kt.actions
 
 import org.eclipse.lsp4j.Position
 import org.eclipse.lsp4j.Range
@@ -7,7 +7,6 @@ import org.jetbrains.kotlin.lexer.KtKeywordToken
 import org.jetbrains.kotlin.lexer.KtTokens
 import org.jetbrains.kotlin.name.FqName
 import org.jetbrains.kotlin.psi.*
-import org.javacs.kt.position.location
 
 fun getImportTextEditEntry(parsedFile: KtFile, fqName: FqName): TextEdit {
     val imports = parsedFile.importDirectives

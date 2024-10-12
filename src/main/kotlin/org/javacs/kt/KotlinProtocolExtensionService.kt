@@ -3,16 +3,16 @@ package org.javacs.kt
 import org.eclipse.lsp4j.*
 import org.javacs.kt.util.AsyncExecutor
 import org.javacs.kt.util.parseURI
-import org.javacs.kt.resolve.resolveMain
-import org.javacs.kt.position.offset
-import org.javacs.kt.overridemembers.listOverridableMembers
+import org.javacs.kt.actions.resolveMain
+import org.javacs.kt.actions.offset
+import org.javacs.kt.actions.listOverridableMembers
 import java.util.concurrent.CompletableFuture
 import java.nio.file.Paths
 
 class KotlinProtocolExtensionService(
     private val uriContentProvider: URIContentProvider,
-    private val cp: CompilerClassPath,
-    private val sp: SourcePath
+    private val classPath: CompilerClassPath,
+    private val sourcePath: SourcePath
 ) : KotlinProtocolExtensions {
     private val async = AsyncExecutor()
 
@@ -21,7 +21,7 @@ class KotlinProtocolExtensionService(
     }
 
     override fun buildOutputLocation(): CompletableFuture<String?> = async.compute {
-        cp.outputDirectory.absolutePath
+        this@KotlinProtocolExtensionService.classPath.outputDirectory.absolutePath
     }
 
     override fun mainClass(textDocument: TextDocumentIdentifier): CompletableFuture<Map<String, Any?>> = async.compute {
@@ -29,13 +29,13 @@ class KotlinProtocolExtensionService(
         val filePath = Paths.get(fileUri)
         
         // we find the longest one in case both the root and submodule are included
-        val workspacePath = cp.workspaceRoots.filter {
+        val workspacePath = this@KotlinProtocolExtensionService.classPath.workspaceRoots.filter {
             filePath.startsWith(it)
         }.map {
             it.toString()
         }.maxByOrNull(String::length) ?: ""
         
-        val compiledFile = sp.currentVersion(fileUri)
+        val compiledFile = sourcePath.currentVersion(fileUri)
 
         resolveMain(compiledFile) + mapOf(
             "projectRoot" to workspacePath
@@ -44,7 +44,7 @@ class KotlinProtocolExtensionService(
 
     override fun overrideMember(position: TextDocumentPositionParams): CompletableFuture<List<CodeAction>> = async.compute {
         val fileUri = parseURI(position.textDocument.uri)
-        val compiledFile = sp.currentVersion(fileUri)
+        val compiledFile = sourcePath.currentVersion(fileUri)
         val cursorOffset = offset(compiledFile.content, position.position)
 
         listOverridableMembers(compiledFile, cursorOffset)
